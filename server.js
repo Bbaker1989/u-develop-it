@@ -3,6 +3,7 @@ const mysql = require('mysql2');
 
 //import express
 const express = require('express');
+const { query } = require('express');
 //PORT designation and APP expression
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -22,6 +23,14 @@ const db = mysql.createConnection(
     },
     console.log('Connected to the election database.')
 );
+//query the database to return all the data in the candidates table
+/* db object is using the query()
+rows is the database query response
+if there are no errors, the err is null
+*/
+db.query(`SELECT * FROM candidates`, (err, rows) => {
+    console.log(rows);
+});
 
 
 //Default response for any other request (Not Found)
